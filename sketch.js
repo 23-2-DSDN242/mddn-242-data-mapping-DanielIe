@@ -3,9 +3,9 @@ let maskImg=null;
 let renderCounter=0;
 
 // change these three lines as appropiate
-let sourceFile = "input_3.png";
-let maskFile   = "mask_3.png";
-let outputFile = "output_3.png";
+let sourceFile = "input_6.png";
+let maskFile   = "mask_6.png";
+let outputFile = "output_6.png";
 
 
 
@@ -33,16 +33,7 @@ function setup () {
   maskImg.loadPixels();
   colorMode(HSB);
 
-
   noiseDetail(2, 0);
-
-  /*for(var i=0; i<n; i++){
-    var particle = new Object();
-    
-    particle.pos = createVector(random(width), random(height));
-    particles.push(particle);//add particle to particle list
-  }*/
-
 
   while(particles.length < n) {
     let pos = createVector(random(width), random(height));
@@ -76,13 +67,14 @@ function test1() {
       let b = brightness(col);
 
       if(mask[0] > 128) {
-        set(i, j, color(h, s/1.5, min(b*1.5, 100)));
+        set(i, j, color(h, s/1.5, min(b*1.2, 100)));
       }
       else {
 
         let newHue = p5.Vector.lerp(createVector(h,s), createVector(290,100), 0.5);
         let newBright = pow(b/100, 2)*100;
-        set(i, j, color(newHue.x, newHue.y, newBright));
+        //set(i, j, color(newHue.x, newHue.y, newBright));
+        set(i, j, color(h, s, newBright));
       }
     }
   }
@@ -140,7 +132,6 @@ function test2() {
 
     }
     else {
-      let pointSize = 20;
       f.setAlpha(random(30, 120));
       stroke(f);
       strokeWeight(1);
@@ -154,7 +145,6 @@ function test2() {
         strokeWeight(2);
 
       }
-
       
       let scale = random(0.5,5);
       line(x,y-10*scale, x,y+10*scale);
@@ -196,7 +186,6 @@ function test3(iterations) {
   
   let newcolour = color(chue, saturation(colour), brightness(colour));
   colorMode(RGB);
-  //newcolour = lerpColor(newcolour, colour, 0.4);
   
   
   for(var i=0; i<particles.length; i++){
@@ -244,8 +233,6 @@ function draw () {
     test3((renderCounter-1085) - iter);
   }
   
-  // print(renderCounter);
-  //if(renderCounter > 1080 + 5) {
   if(renderCounter > 1085 + iter*2) {
     console.log("Done!")
     noLoop();
